@@ -23,3 +23,5 @@ function uploadPhoto(data){
 function okay(){
     //do something
 }
+
+
