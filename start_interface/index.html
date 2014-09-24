@@ -25,12 +25,16 @@
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
     
-    <img src="img/applause.jpg" />
+    <div class="gif"><img src="img/applause.jpg" /></div>
+    <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
     
     <a href="#" class="button">Over All Results<a>
     
+    <footer>
+            <img id= "logo" src="img/onalogo.jpg">
+
+    </footer>
     
-      <img src="img/onalogo.jpg">
   
 
     
@@ -41,6 +45,14 @@
     <script src="js/foundation.min.js"></script>
     <script>
       $(document).foundation();
+      
+      $(document).ready(function(){
+		$( ".gif" ).mousedown(function() {
+			$( ".gifPlay" ).toggle();
+			$(".gif").attr('src', $(".gifPlay"));
+		});
+	});
+      
     </script>
   </body>
 </html>
