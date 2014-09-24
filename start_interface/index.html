@@ -25,9 +25,9 @@
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
     
-    <div class="gif"><img src="img/applause.jpg" /></div>
+    <div class="gif"><img src="img/applause.jpg" />
     <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
-    
+    </div>
     <a href="#" class="button">Over All Results<a>
     
     <footer>
@@ -46,12 +46,20 @@
     <script>
       $(document).foundation();
       
-      $(document).ready(function(){
-		$( ".gif" ).mousedown(function() {
-			$( ".gifPlay" ).toggle();
-			$(".gif").attr('src', $(".gifPlay"));
+     $('.gif img').each(function(){
+			
+			var src = $(this).attr('src');
+
+			
+			$(this).mousedown(function(){
+				$(this).attr('src',src.replace('.jpg','.gif'));
+			});
+
+			
+			$(this).mouseup(function(){
+				$(this).attr('src',src.replace('.gif','.jpg'));
+			});
 		});
-	});
       
     </script>
   </body>
