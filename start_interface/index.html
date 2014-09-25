@@ -53,11 +53,11 @@
       $(document).foundation();
       
       var user_uuid = uuid.v4();
-      if ($cookie('applause')) {
+      if ($.cookie('applause')) {
       	user_uuid = cookie('applause');
       } else {
       	user_uuid = uuid.v4();
-      	$cookie('applause', user_uuid);
+      	$.cookie('applause', user_uuid);
       	//code
       }
 
