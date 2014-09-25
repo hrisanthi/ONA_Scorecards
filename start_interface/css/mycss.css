@@ -57,15 +57,15 @@ meter::-webkit-meter-optimum-value {
   box-shadow: 0 5px 5px -5px #999 inset;
   background-image: linear-gradient(
     90deg, 
-    #719fd1 5%, 
-    #719fd1 5%,
-    #719fd1 15%,
-    #719fd1 15%,
-    #719fd1 55%,
-    #719fd1 55%,
-    #719fd1 95%,
-    #719fd1 95%,
-    #719fd1 100%
+    #993399 5%, 
+    #993399 5%,
+    #993399 15%,
+    #993399 15%,
+    #993399 55%,
+    #993399 55%,
+    #993399 95%,
+    #993399 95%,
+    #993399 100%
   );
   background-size: 100% 100%;
 }

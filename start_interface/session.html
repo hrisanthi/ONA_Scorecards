@@ -19,7 +19,7 @@
     <img  id="logo" src="img/logo.jpg"/>
     <div class="row">
         <h2 id= "title">Welcome to: The Session</h2>
-	<meter value="2" min="0" max="100"/>
+	<meter value="0" min="0" max="100"/>
     </div>
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
@@ -28,7 +28,7 @@
     <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
     </div>
     
-    <a href="#" class="button">Over All Results<a>
+    <p style="margin: 0px 10px 0px 10px">Come back tomorrow for the results</p>
 
     
     
@@ -60,14 +60,19 @@
       var start,end; 
       var diff = 0;
       var timeout;
-			
+      var val = $('meter').val();
+		
       $('.applause-btn').bind("touchstart mousedown",function(){
 	$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
 	start = +new Date();
-	var val = $('meter').val();
 	console.log(val);
 	timeout = setInterval(function(){
-	  $('meter').val(val++);
+	  if (val == 100) {
+	  }else{
+	    $('meter').val(val++);
+	  }
+	  
+	
 	},50);
 	
 	console.log(val);
@@ -76,6 +81,7 @@
       $('.applause-btn').bind("touchend mouseup",function(){
 	vote_uuid = uuid.v4();
 	clearInterval(timeout);
+	
 
 	$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
 	end = +new Date(); 
@@ -87,6 +93,7 @@
           sessionName: sessionName,
           duration: $('meter').val()
         };
+	console.log(payload);
 
         $.ajax({
           type: "POST",
@@ -96,6 +103,16 @@
         })
 				
       });
+      
+      var prodId = getParameterByName('session');
+      
+      function getParameterByName(name) {
+	  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	  results = regex.exec(location.search);
+      return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    console.log(prodId);
+}
 
       
     </script>
