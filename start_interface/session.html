@@ -19,6 +19,7 @@
     <img  id="logo" src="img/logo.jpg"/>
     <div class="row">
         <h2 id= "title">Welcome to: The Session</h2>
+	<meter value="2" min="0" max="100"/>
     </div>
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
@@ -28,10 +29,7 @@
     </div>
     
     <a href="#" class="button">Over All Results<a>
-    
-    <footer>
-      <img id= "logo" src="img/onalogo.jpg">
-    </footer>
+
     
     
     <script src="js/vendor/jquery.js"></script>
@@ -58,27 +56,36 @@
       var sessionName = "demo";
       
 			
-			var src = $('.applause-btn').attr('src');
-			var start,end; 
-			var diff = 0;
+      var src = $('.applause-btn').attr('src');
+      var start,end; 
+      var diff = 0;
+      var timeout;
 			
-			$('.applause-btn').bind("touchstart mousedown",function(){
-				$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
-				start = +new Date();
-		  });
+      $('.applause-btn').bind("touchstart mousedown",function(){
+	$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
+	start = +new Date();
+	var val = $('meter').val();
+	console.log(val);
+	timeout = setInterval(function(){
+	  $('meter').val(val++);
+	},50);
+	
+	console.log(val);
+      });
 			
-			$('.applause-btn').bind("touchend mouseup",function(){
-        vote_uuid = uuid.v4();
+      $('.applause-btn').bind("touchend mouseup",function(){
+	vote_uuid = uuid.v4();
+	clearInterval(timeout);
 
-				$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
-				end = +new Date(); 
-				diff += end - start;
+	$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
+	end = +new Date(); 
+	diff += end - start;
 
         var payload = {
           userID: user_uuid, 
           timestamp: $.now(), 
           sessionName: sessionName,
-          duration: diff
+          duration: $('meter').val()
         };
 
         $.ajax({
@@ -88,7 +95,7 @@
           data: JSON.stringify(payload)
         })
 				
-			});
+      });
 
       
     </script>
