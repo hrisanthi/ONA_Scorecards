@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="css/mycss.css" />
     <script src="js/vendor/modernizr.js"></script>
     <!--<script src="js/camera.js"></script>-->
-    <script src="js/myjsfile.js"></script>
       <!--<script src="phonegap.js"></script>
       <script src="barcodescanner.js"></script>-->
-      <script src="myjsfile.js"></script>
+      <!--<script src="myjsfile.js"></script>-->
+      <script src="js/uuid.js"></script>
+      <script src="js/cookie.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
   </head>
  
@@ -20,7 +21,6 @@
     <img  id="logo" src="img/logo.jpg"/>
     <div class="row">
         <h2 id= "title">Welcome to: The Session</h2>
-	<meter value="2" min="0" max="100"/>
     </div>
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
@@ -28,6 +28,11 @@
     <div class="gif"><img src="img/applause.jpg" />
     <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
     </div>
+    
+    <form method="get">
+			<input type="hidden" name="uuid">
+			<input type="hidden" name="time" >
+    </form>
     <a href="#" class="button">Over All Results<a>
     
     <footer>
@@ -46,18 +51,44 @@
     <script>
       $(document).foundation();
       
+      var user_uuid = uuid.v4();
+      if ($cookie('applause')) {
+	user_uuid = cookie('applause');
+      } else {
+	user_uuid = uuid.v4();
+	$cookie('applause', user_uuid)
+	//code
+      }
+      var doc_uuid = uuid.v4();
+      var session_name = "demo";
+      
+  
+      
      $('.gif img').each(function(){
 			
 			var src = $(this).attr('src');
+			var start,end; 
+			var diff = 0;
 
 			
-			$(this).mousedown(function(){
+			$(this).bind("touchstart mousedown",function(){
 				$(this).attr('src',src.replace('.jpg','.gif'));
-			});
+				start = +new Date();
+				$.post( "https://jeremybowers.com/json/POST/applause-test/"+session_name+"/"+doc_uuid, { uuid: user_uuid, timestamp: $.now(), diffsession: session_name } );
+
+				  });
 
 			
-			$(this).mouseup(function(){
+			$(this).bind("touchend mouseup",function(){
 				$(this).attr('src',src.replace('.gif','.jpg'));
+				end = +new Date(); 
+				diff += end - start;
+				
+			console.log(diff+' milliseconds');
+			
+			
+			$('input[name="time"]').val(diff);
+			$('input[name="uuid"]').val(uuid);
 			});
 		});
       
