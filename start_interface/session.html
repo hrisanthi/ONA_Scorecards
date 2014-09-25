@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applause</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/mycss.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <!--<script src="js/camera.js"></script>-->
+      <!--<script src="phonegap.js"></script>
+      <script src="barcodescanner.js"></script>-->
+      <!--<script src="myjsfile.js"></script>-->
+      
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
+  </head>
+ 
+  <body>
+    <img  id="logo" src="img/logo.jpg"/>
+    <div class="row">
+        <h2 id= "title">Welcome to: The Session</h2>
+	<meter value="2" min="0" max="100"/>
+    </div>
+      	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
+
+    
+    <div class="gif"><img class="applause-btn" src="img/applause.jpg" />
+    <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
+    </div>
+    
+    <a href="#" class="button">Over All Results<a>
+
+    
+    
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/uuid.js"></script>
+    <script src="js/cookie.js"></script>
+
+    <script>
+
+      // Accept a session id parameter in the URL
+
+      $(document).foundation();
+
+      var user_uuid;      
+
+      if ($.cookie('applause')) {
+      	user_uuid = $.cookie('applause');
+      } else {
+        user_uuid = uuid.v4();
+      	$.cookie('applause', user_uuid, { expires: 3 });
+      }
+
+      var vote_uuid;
+      var sessionName = "demo";
+      
+			
+      var src = $('.applause-btn').attr('src');
+      var start,end; 
+      var diff = 0;
+      var timeout;
+			
+      $('.applause-btn').bind("touchstart mousedown",function(){
+	$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
+	start = +new Date();
+	var val = $('meter').val();
+	console.log(val);
+	timeout = setInterval(function(){
+	  $('meter').val(val++);
+	},50);
+	
+	console.log(val);
+      });
+			
+      $('.applause-btn').bind("touchend mouseup",function(){
+	vote_uuid = uuid.v4();
+	clearInterval(timeout);
+
+	$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
+	end = +new Date(); 
+	diff += end - start;
+
+        var payload = {
+          userID: user_uuid, 
+          timestamp: $.now(), 
+          sessionName: sessionName,
+          duration: $('meter').val()
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "https://jeremybowers.com/json/POST/applause-test/"+sessionName+"/"+vote_uuid,
+          crossDomain: true,
+          data: JSON.stringify(payload)
+        })
+				
+      });
+
+      
+    </script>
+  </body>
+</html>
+
