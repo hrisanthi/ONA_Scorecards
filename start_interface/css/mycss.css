@@ -70,10 +70,20 @@ meter::-webkit-meter-optimum-value {
   background-size: 100% 100%;
 }
 
+p.sessions {
+    margin: 0px;
+}
+
 .button{
     margin-left: 10px;
     width: 95%;
     font-family: 'Raleway', sans-serif;
+}
+
+.s-button {
+    margin-left: 0px;
+    width: 100%;
+    margin-bottom: 3px;
 }
 
 
