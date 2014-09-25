@@ -11,8 +11,7 @@
       <!--<script src="phonegap.js"></script>
       <script src="barcodescanner.js"></script>-->
       <!--<script src="myjsfile.js"></script>-->
-      <script src="js/uuid.js"></script>
-      <script src="js/cookie.js"></script>
+      
     <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
   </head>
  
@@ -24,71 +23,75 @@
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
     
-    <div class="gif"><img src="img/applause.jpg" />
+    <div class="gif"><img class="applause-btn" src="img/applause.jpg" />
     <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
     </div>
     
-    <form method="get">
-			<input type="hidden" name="uuid">
-			<input type="hidden" name="time" >
-    </form>
     <a href="#" class="button">Over All Results<a>
     
     <footer>
-            <img id= "logo" src="img/onalogo.jpg">
-
+      <img id= "logo" src="img/onalogo.jpg">
     </footer>
-    
-  
-
-    
-
     
     
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/uuid.js"></script>
+    <script src="js/cookie.js"></script>
     <script src="data/master_schedule.js"></script>
 
     <script>
+
+      // Accept a session id parameter in the URL
+
       $(document).foundation();
-      
-      var user_uuid = uuid.v4();
+
+      var user_uuid;      
+
       if ($.cookie('applause')) {
-      	user_uuid = cookie('applause');
+      	user_uuid = $.cookie('applause');
       } else {
-      	user_uuid = uuid.v4();
-      	$.cookie('applause', user_uuid);
-      	//code
+        user_uuid = uuid.v4();
+      	$.cookie('applause', user_uuid, { expires: 3 });
       }
 
-      var doc_uuid = uuid.v4();
+      var vote_uuid = uuid.v4();
       var session_name = "demo";
       
-      $('.gif img').each(function(){
 			
-  			var src = $(this).attr('src');
-  			var start,end; 
-  			var diff = 0;
-  			
-  			$(this).bind("touchstart mousedown",function(){
-  				$(this).attr('src',src.replace('.jpg','.gif'));
-  				start = +new Date();
-  				$.post( "https://jeremybowers.com/json/POST/applause-test/"+session_name+"/"+doc_uuid, { uuid: user_uuid, timestamp: $.now(), diffsession: session_name } );
-			  });
+			var src = $('.applause-btn').attr('src');
+			var start,end; 
+			var diff = 0;
+			
+			$('.applause-btn').bind("touchstart mousedown",function(){
+				$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
+				start = +new Date();
 
-  			
-  			$(this).bind("touchend mouseup",function(){
-  				$(this).attr('src',src.replace('.gif','.jpg'));
-  				end = +new Date(); 
-  				diff += end - start;
-  				
-    			console.log(diff+' milliseconds');
-    			
-    			$('input[name="time"]').val(diff);
-    			$('input[name="uuid"]').val(uuid);
-  			});
+		  });
+			
+			$('.applause-btn').bind("touchend mouseup",function(){
+				$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
+				end = +new Date(); 
+				diff += end - start;
 
-  		});
+        var payload = {
+          uuid: user_uuid, 
+          timestamp: $.now(), 
+          diffsession: session_name,
+          duration: diff
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "https://jeremybowers.com/json/POST/applause-test/"+session_name+"/"+vote_uuid,
+          crossDomain: true,
+          data: JSON.stringify(payload)
+        }).done(function( msg ) {
+            alert( "Data Saved: " + msg );
+        });
+				
+			});
+
       
     </script>
   </body>
