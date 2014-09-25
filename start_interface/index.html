@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/mycss.css" />
     <script src="js/vendor/modernizr.js"></script>
-    <!--<script src="js/camera.js"></script>-->
-      <!--<script src="phonegap.js"></script>
-      <script src="barcodescanner.js"></script>-->
-      <!--<script src="myjsfile.js"></script>-->
       
     <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
   </head>
@@ -20,13 +16,10 @@
     <div class="row">
         <h2 id= "title">Pick a Session</h2>
     </div>
-      	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
-	
-    
-    <div class="gif"><img class="applause-btn" src="img/applause.jpg" /></div>
-    
-    <p style="margin: 0px 10px 0px 10px">Come back tomorrow to check out the results</p>    
+    <div id="sessions"></div>
+
+
 
     
     
@@ -38,7 +31,12 @@
 
       $(document).foundation();
 
+      var html = [];
+      $.each(schedule, function(k,v){
+        html.push('<div class="row"><p><a href="">Session Name here!</a></p></div>');
+      })
 
+      $('#sessions').html(html.join(""));
       
     </script>
   </body>
