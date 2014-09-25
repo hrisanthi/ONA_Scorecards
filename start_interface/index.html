@@ -29,10 +29,17 @@
 
       var html = [];
       $.each(schedule, function(k,v){
-        var session = v.session_ID.split("-");
 
-        if (session[0] != "Midway"){
-          html.push('<div class="row"><p class="sessions"><a class="button s-button" href="session.html?session=' + v.session_ID + '">' + session.join(" ") + '</a></p></div>');
+        if (v.event_type != "Other"){
+
+          var session = v.session_ID.split("-");
+
+          if (session[0] != "Midway"){
+
+            var time = v.event_start.split(" ")[1];
+
+            html.push('<div class="row"><p class="sessions"><a class="button s-button" href="session.html?session=' + v.session_ID + '"><span>' + time + "</span> " + session.join(" ") + '</a></p></div>');
+          };
         };
 
       })

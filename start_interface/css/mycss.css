@@ -84,6 +84,15 @@ p.sessions {
     margin-left: 0px;
     width: 100%;
     margin-bottom: 3px;
+    text-align: left;
+    font-size: 14px;
 }
 
+
+.sessions span {
+    width: 50px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 10px;
+}
 
