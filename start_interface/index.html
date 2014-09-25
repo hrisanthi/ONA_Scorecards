@@ -16,7 +16,6 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
   </head>
  
- 
   <body>
     <img  id="logo" src="img/logo.jpg"/>
     <div class="row">
@@ -48,49 +47,47 @@
     
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+
     <script>
       $(document).foundation();
       
       var user_uuid = uuid.v4();
       if ($cookie('applause')) {
-	user_uuid = cookie('applause');
+      	user_uuid = cookie('applause');
       } else {
-	user_uuid = uuid.v4();
-	$cookie('applause', user_uuid)
-	//code
+      	user_uuid = uuid.v4();
+      	$cookie('applause', user_uuid);
+      	//code
       }
+
       var doc_uuid = uuid.v4();
       var session_name = "demo";
       
-  
-      
-     $('.gif img').each(function(){
+      $('.gif img').each(function(){
 			
-			var src = $(this).attr('src');
-			var start,end; 
-			var diff = 0;
+  			var src = $(this).attr('src');
+  			var start,end; 
+  			var diff = 0;
+  			
+  			$(this).bind("touchstart mousedown",function(){
+  				$(this).attr('src',src.replace('.jpg','.gif'));
+  				start = +new Date();
+  				$.post( "https://jeremybowers.com/json/POST/applause-test/"+session_name+"/"+doc_uuid, { uuid: user_uuid, timestamp: $.now(), diffsession: session_name } );
+			  });
 
-			
-			$(this).bind("touchstart mousedown",function(){
-				$(this).attr('src',src.replace('.jpg','.gif'));
-				start = +new Date();
-				$.post( "https://jeremybowers.com/json/POST/applause-test/"+session_name+"/"+doc_uuid, { uuid: user_uuid, timestamp: $.now(), diffsession: session_name } );
+  			
+  			$(this).bind("touchend mouseup",function(){
+  				$(this).attr('src',src.replace('.gif','.jpg'));
+  				end = +new Date(); 
+  				diff += end - start;
+  				
+    			console.log(diff+' milliseconds');
+    			
+    			$('input[name="time"]').val(diff);
+    			$('input[name="uuid"]').val(uuid);
+  			});
 
-				  });
-
-			
-			$(this).bind("touchend mouseup",function(){
-				$(this).attr('src',src.replace('.gif','.jpg'));
-				end = +new Date(); 
-				diff += end - start;
-				
-			console.log(diff+' milliseconds');
-			
-			
-			$('input[name="time"]').val(diff);
-			$('input[name="uuid"]').val(uuid);
-			});
-		});
+  		});
       
     </script>
   </body>
