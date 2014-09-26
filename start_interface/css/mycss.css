@@ -41,7 +41,7 @@ p{
     margin-top: 0px;
 }
 
-.applause-btn {
+.applause-btn, .gif {
     -webkit-touch-callout: none;
     -moz-touch-callout: none;
     touch-callout: none;
