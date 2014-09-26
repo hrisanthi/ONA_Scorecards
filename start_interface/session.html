@@ -15,8 +15,7 @@
     <img  id="logo" src="img/logo.jpg"/>
     <div class="row">
         <h2 id= "title">Welcome to...</h2>
-      	<meter value="0" min="0" max="100"/>
-	
+        <progress value="0" max="100"></progress>	
     </div>
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
@@ -55,7 +54,7 @@
       var start,end; 
       var diff = 0;
       var timeout;
-      var val = $('meter').val();
+      var val = $('progress').val();
 		
       $('.applause-btn').bind("touchstart mousedown",function(){
 	$('.applause-btn').css('background-image', "url('img/applause.gif')");
@@ -67,7 +66,7 @@
 	    clearInterval(timeout);
 	    
 	  }else{
-	    $('meter').val(val++);
+	    $('progress').val(val++);
 	  }
 
 	},50);
@@ -88,7 +87,7 @@
           userID: user_uuid, 
           timestamp: $.now(), 
           sessionName: sessionID,
-          duration: $('meter').val()
+          duration: $('progress').val()
         };
 
         $.ajax({
@@ -103,7 +102,7 @@
       });
       
       function reset(){
-	$('meter').val(0);
+	$('progress').val(0);
 	val = 0;
       }
       

@@ -58,33 +58,51 @@ p{
     -ms-user-select: none; 
 }
 
-meter {
-    width: 95%;
-    margin: 10px 10px 10px 10px;
+progress {
+    /* Reset the default appearance */
     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
-meter::-webkit-meter-bar {
-  background: none; /* Required to get rid of the default background property */
-  background-color: whiteSmoke;
-  box-shadow: 0 5px 5px -5px #333 inset;
+/* Determinate */
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
-meter::-webkit-meter-optimum-value {
-  box-shadow: 0 5px 5px -5px #999 inset;
-  background-image: linear-gradient(
-    90deg, 
-    #993399 5%, 
-    #993399 5%,
-    #993399 15%,
-    #993399 15%,
-    #993399 55%,
-    #993399 55%,
-    #993399 95%,
-    #993399 95%,
-    #993399 100%
-  );
-  background-size: 100% 100%;
+/* Indeterminate */
+progress:not([value]) {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background: #EEE;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #993399;
+    border-radius: 3px;
+}
+
+progress {
+    background: #993399;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    border-radius: 3px;
+    margin: 10px;
+    width: 281px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #993399;
+    border-radius: 3px;
 }
 
 p.sessions {
