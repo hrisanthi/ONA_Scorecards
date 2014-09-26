@@ -60,9 +60,9 @@
       $('.applause-btn').bind("touchstart mousedown",function(){
 	$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
 	start = +new Date();
-	console.log(val);
+
 	timeout = setInterval(function(){
-	  if (val == 100) {
+	  if (val == 101) {
 	    $(".applause-btn").attr('src', 'img/minion.png');
 	    clearInterval(timeout);
 	    
@@ -90,11 +90,10 @@
           sessionName: sessionID,
           duration: $('meter').val()
         };
-	console.log(payload);
 
         $.ajax({
           type: "POST",
-          url: "https://jeremybowers.com/json/POST/applause-test/"+sessionID+"/"+vote_uuid,
+          url: "https://jeremybowers.com/json/POST/applause/"+sessionID+"/"+vote_uuid,
           crossDomain: true,
           data: JSON.stringify(payload)
         })
