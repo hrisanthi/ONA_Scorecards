@@ -6,7 +6,8 @@ body {
 
 p.desc {
     margin: 0 10px;
-    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    line-height: 16px;
 }
 
 p.progress-label {
@@ -51,6 +52,8 @@ p{
     background-color: #333638;
     color: white;
     margin-top: 0px;
+    font-size: 26px;
+    text-align: center;
 }
 
 .applause-btn {
