@@ -41,7 +41,14 @@ p{
     margin-top: 0px;
 }
 
+.applause-btn {
+    -webkit-touch-callout: none;
+    -moz-touch-callout: none;
+    touch-callout: none;
+}
+
 meter{
+
     width: 95%;
     margin: 10px 10px 10px 10px;
     -webkit-appearance: none;
