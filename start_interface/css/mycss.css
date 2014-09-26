@@ -4,6 +4,18 @@ body {
     background-color: #a7ddf9;
 }
 
+p.desc {
+    margin: 0 10px;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
+}
+
+p.progress-label {
+    margin: 15px 10px 0px;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
 img{
     padding: 10px 10px 10px 10px;
 }
@@ -96,7 +108,7 @@ progress {
     background: #993399;
     box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
     border-radius: 3px;
-    margin: 10px;
+    margin: 0 10px;
     width: 281px;
 }
 
