@@ -41,6 +41,14 @@ p{
     margin-top: 0px;
 }
 
+.applause-btn {
+    background-image: url('../img/applause.jpg');
+    background-size: 281px 187px;
+    width: 281px; 
+    height: 187px;
+    margin: 10px;
+}
+
 .applause-btn, .gif {
     -webkit-touch-callout: none;
     -moz-touch-callout: none;
@@ -50,8 +58,7 @@ p{
     -ms-user-select: none; 
 }
 
-meter{
-
+meter {
     width: 95%;
     margin: 10px 10px 10px 10px;
     -webkit-appearance: none;

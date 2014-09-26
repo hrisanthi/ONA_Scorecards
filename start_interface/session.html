@@ -21,7 +21,7 @@
       	<p style="margin: 0px 10px 0px 10px">The longer you hold down the play button the louder the applause.</p>
 
     
-    <div class="gif"><img class="applause-btn" src="img/applause.jpg" />
+    <div class="gif"><div class="applause-btn"></div>
     <div class="gifPlay" style="display: none"><img src="img/applause.gif"/></div>
     </div>
     
@@ -58,12 +58,12 @@
       var val = $('meter').val();
 		
       $('.applause-btn').bind("touchstart mousedown",function(){
-	$('.applause-btn').attr('src',src.replace('.jpg','.gif'));
+	$('.applause-btn').css('background-image', "url('img/applause.gif')");
 	start = +new Date();
 
 	timeout = setInterval(function(){
 	  if (val == 101) {
-	    $(".applause-btn").attr('src', 'img/minion.png');
+	    $(".applause-btn").css('background-image', "url('img/minion.png')");
 	    clearInterval(timeout);
 	    
 	  }else{
@@ -80,7 +80,7 @@
 	
 	
 
-	$('.applause-btn').attr('src',src.replace('.gif','.jpg'));
+	$('.applause-btn').css('background-image', "url('img/applause.jpg')");
 	end = +new Date(); 
 	diff += end - start;
 
@@ -93,7 +93,7 @@
 
         $.ajax({
           type: "POST",
-          url: "https://jeremybowers.com/json/POST/applause/"+sessionID+"/"+vote_uuid,
+          url: "https://jeremybowers.com/json/POST/applause-test/"+sessionID+"/"+vote_uuid,
           crossDomain: true,
           data: JSON.stringify(payload)
         })
