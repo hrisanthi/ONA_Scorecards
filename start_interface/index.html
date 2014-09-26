@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/mycss.css" />
     <script src="js/vendor/modernizr.js"></script>
       
-    <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>      
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>     
   </head>
  
   <body>
@@ -22,8 +22,23 @@
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script src="data/master_schedule.js"></script>
+    
 
     <script>
+  function tConvert (time) {
+  // Check correct time format and split into components
+  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) { // If time format correct
+    time = time.slice (1);  // Remove full string match value
+    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+  return time.join (''); // return adjusted time or original string
+  
+}
+
+
 
       $(document).foundation();
 
@@ -37,14 +52,23 @@
           if (session[0] != "Midway"){
 
             var time = v.event_start.split(" ")[1];
-
-            html.push('<div class="row"><p class="sessions"><a class="button s-button" href="session.html?session=' + v.session_ID + '"><span>' + time + "</span> " + session.join(" ") + '</a></p></div>');
+	    time =  tConvert(time);
+	    console.log(time);
+	    //var test = moment(time).format("hh:mm");
+	   
+	    
+	    
+            
+	    html.push('<div class="row"><p class="sessions"><a class="button s-button" href="session.html?session=' + v.session_ID + '"><span>' + time + "</span> " + session.join(" ") + '</a></p></div>');
           };
         };
 
       })
 
       $('#sessions').html(html.join(""));
+      	   
+    
+
       
     </script>
   </body>
